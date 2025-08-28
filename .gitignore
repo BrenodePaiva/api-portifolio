@@ -1,0 +1,6 @@
+.env
+docker-compose.yml
+.prettierrc
+.sequelizerc
+eslint.config.mjs
+node_modules/

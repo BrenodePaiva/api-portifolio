@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import Sequelize from 'sequelize'
+import 'pg'
 
 import Category from '../app/models/Category'
 import Project from '../app/models/Project'

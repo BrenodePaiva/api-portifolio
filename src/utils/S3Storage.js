@@ -7,7 +7,6 @@ import {
 } from '@aws-sdk/client-s3'
 import path from 'path'
 import multerConfig from '../config/multer'
-import mime from 'mime'
 import fs from 'fs'
 
 class S3Storage {
@@ -17,7 +16,11 @@ class S3Storage {
 
   async saveFile(filename, response) {
     const originalPath = path.resolve(multerConfig.directory, filename)
-    const contentType = mime.getType(originalPath)
+    const contentType = (async () => {
+      const mime = await import('mime')
+      // use mime aqui
+      mime.getType(originalPath)
+    })()
 
     if (!contentType) {
       throw new Error('File not found')
@@ -54,33 +57,6 @@ class S3Storage {
     }
   }
   //--------------------------------------------------------------
-  // constructor() {
-  //   this.client = new aws.S3({
-  //     region: 'us-east-1'
-  //   })
-  // }
-  // async saveFile(filename) {
-  //   const originalPath = path.resolve(multerConfig.directory, filename)
-  //   const ContentType = mime.getType(originalPath)
-
-  //   if (!ContentType) {
-  //     throw new Error('File not found')
-  //   }
-
-  //   const fileContent = await fs.promises.readFile(originalPath)
-
-  //   this.client
-  //     .putObject({
-  //       Bucket: 'aula-youtube-01',
-  //       Key: filename,
-  //       ACL: 'public-read',
-  //       Body: fileContent,
-  //       ContentType
-  //     })
-  //     .promise()
-
-  //   await fs.promises.unlink(originalPath)
-  // }
 }
 
 export default new S3Storage()

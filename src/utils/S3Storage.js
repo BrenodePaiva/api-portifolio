@@ -11,7 +11,7 @@ import fs from 'fs'
 
 class S3Storage {
   constructor() {
-    this.client = new S3Client({ region: 'us-east-1' })
+    this.client = new S3Client({ region: 'sa-east-1' })
   }
 
   async saveFile(filename, response) {
@@ -29,7 +29,7 @@ class S3Storage {
     const fileContent = await fs.promises.readFile(originalPath)
 
     const params = {
-      Bucket: 'portifolio-image',
+      Bucket: 'portifolio-img',
       Key: filename,
       Body: fileContent,
       ContentType: contentType
@@ -46,7 +46,7 @@ class S3Storage {
   //--------------------------------------------------------------
   async deleteFile(filename, response) {
     const params = {
-      Bucket: 'portifolio-image',
+      Bucket: 'portifolio-img',
       Key: filename
     }
 

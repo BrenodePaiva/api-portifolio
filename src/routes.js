@@ -27,8 +27,8 @@ routes.get('/', (req, res) => {
 })
 
 routes.post('/sessions', SessionController.store)
-routes.post('/forgotPass', SessionController.forgotPass)
-routes.patch('/resetPassword/:token', SessionController.resetPassword)
+routes.post('/forgot-pass', SessionController.forgotPass)
+routes.patch('/reset-password/:token', SessionController.resetPassword)
 
 routes.get('/categories', CategoryController.index)
 

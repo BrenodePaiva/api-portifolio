@@ -109,6 +109,7 @@ class UserController {
 
     try {
       await sendEmail({
+        name: 'Portifolio Contact Form',
         subject,
         to: 'brenopaiva552@gmail.com',
         htmlmail,

@@ -67,6 +67,7 @@ class SessionController {
 
       try {
         await sendEmail({
+          name: 'Portifolio Login',
           subject: 'Reset password',
           to: email,
           htmlmail,
@@ -95,6 +96,7 @@ class SessionController {
 
     try {
       await sendEmail({
+        name: 'Portifolio Login',
         subject: 'Reset password',
         to: email,
         htmlmail,

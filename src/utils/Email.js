@@ -7,8 +7,8 @@ const sendEmail = async options => {
   await client
     .send({
       from: {
-        email: 'hello@brenopaiva.net.br',
-        name: 'Portifolio Login'
+        email: 'no-reply@code-burger.brenofullstack.com',
+        name: options.name
       },
       to: [{ email: options.to }],
       subject: options.subject,

@@ -125,10 +125,10 @@ class SessionController {
     const date = Date.now()
     const user = await User.findOne({
       where: {
-        pass_reset_token: token,
-        pass_reset_token_expires: {
-          [Sequelize.Op.gt]: new Date(date) // Converte para um objeto Date
-        }
+        pass_reset_token: token
+        // pass_reset_token_expires: {
+        //   [Sequelize.Op.gt]: new Date(date) // Converte para um objeto Date
+        // }
       }
     })
 
@@ -145,7 +145,7 @@ class SessionController {
     try {
       await schema.validateSync(request.body)
     } catch (err) {
-      return response.status(400).json({ Error: err })
+      return response.status(500).json({ Error: err })
     }
 
     const { password } = request.body

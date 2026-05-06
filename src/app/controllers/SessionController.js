@@ -132,6 +132,8 @@ class SessionController {
       }
     })
 
+    console.log('Campos do user:', Object.keys(user.toJSON()))
+
     if (!user) {
       return response.status(400).json({
         Error: `Token is invalid or has expired!,`

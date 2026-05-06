@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 import * as Yup from 'yup'
-// import User from '../models/User'
-import database from '../../database'
+import User from '../models/User'
 import authConfig from '../../config/authConfig'
 import sendEmail from '../../utils/Email'
 import crypto from 'crypto'
@@ -11,10 +10,7 @@ import path from 'path'
 import 'dotenv/config'
 
 class SessionController {
-
   async store(request, response) {
-    // pega o model já inicializado
-const { User } = database.connection.models
     const schema = Yup.object().shape({
       email: Yup.string().email().required(),
       password: Yup.string().required()
@@ -49,8 +45,6 @@ const { User } = database.connection.models
   //-------------------------------------------------------------------------
 
   async forgotPass(request, response) {
-    // pega o model já inicializado
-const { User } = database.connection.models
     const schema = Yup.object().shape({
       email: Yup.string().email().required()
     })
@@ -123,8 +117,6 @@ const { User } = database.connection.models
   //----------------------------------------------------------------------------
 
   async resetPassword(request, response) {
-    // pega o model já inicializado
-const { User } = database.connection.models
     const token = crypto
       .createHash('sha256')
       .update(request.params.token)
@@ -133,10 +125,10 @@ const { User } = database.connection.models
     const date = Date.now()
     const user = await User.findOne({
       where: {
-        pass_reset_token: token
-        // pass_reset_token_expires: {
-        //   [Sequelize.Op.gt]: new Date(date) // Converte para um objeto Date
-        // }
+        pass_reset_token: token,
+        pass_reset_token_expires: {
+          [Sequelize.Op.gt]: new Date(date) // Converte para um objeto Date
+        }
       }
     })
 
@@ -161,10 +153,6 @@ const { User } = database.connection.models
 
     const { password } = request.body
 
-    
-    
-    console.log('Password recebido:', password)
-console.log('User.password:', user.password)
 
     user.password = password   
     user.pass_reset_token = null

@@ -125,10 +125,10 @@ class SessionController {
     const date = Date.now()
     const user = await User.findOne({
       where: {
-        pass_reset_token: token,
-        pass_reset_token_expires: {
-          [Sequelize.Op.gt]: new Date(date) // Converte para um objeto Date
-        }
+        pass_reset_token: token
+        // pass_reset_token_expires: {
+        //   [Sequelize.Op.gt]: new Date(date) // Converte para um objeto Date
+        // }
       }
     })
 
@@ -151,7 +151,8 @@ class SessionController {
     const { password } = request.body
 
     
-    user.password = password 
+    
+    user.password = password   
     user.pass_reset_token = null
     user.pass_reset_token_expires = null
 

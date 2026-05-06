@@ -153,6 +153,9 @@ class SessionController {
 
     
     
+    console.log('Password recebido:', password)
+console.log('User.password:', user.password)
+
     user.password = password   
     user.pass_reset_token = null
     user.pass_reset_token_expires = null

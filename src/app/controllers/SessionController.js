@@ -150,9 +150,12 @@ class SessionController {
 
     const { password } = request.body
 
-    ;(user.password = password), (user.pass_reset_token = null)
+    
+    user.password = password 
+    user.pass_reset_token = null
     user.pass_reset_token_expires = null
-    user.save()
+
+    await user.save()
 
     return response.status(200).json({ message: 'The password has changed' })
   }

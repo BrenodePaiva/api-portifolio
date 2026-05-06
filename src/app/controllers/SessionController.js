@@ -143,7 +143,8 @@ class SessionController {
     })
 
     try {
-      await schema.validateSync(request.body)
+      // await schema.validateSync(request.body)
+      await schema.validate(request.body)
     } catch (err) {
       return response.status(500).json({ Error: err })
     }

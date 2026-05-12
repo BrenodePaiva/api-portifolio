@@ -14,34 +14,35 @@ class S3Storage {
     this.client = new S3Client({ region: 'sa-east-1' })
   }
 
-  async saveFile(filename, response) {
-    const originalPath = path.resolve(multerConfig.directory, filename)
-    const contentType = (async () => {
-      const mime = await import('mime')
-      // use mime aqui
-      mime.getType(originalPath)
-    })()
+  async saveFile(file, response) {
+    // const originalPath = path.resolve(multerConfig.directory, filename)
+    // const contentType = (async () => {
+    //   const mime = await import('mime')
+    //   // use mime aqui
+    //   mime.getType(originalPath)
+    // })()
 
-    if (!contentType) {
-      throw new Error('File not found')
-    }
+    // if (!contentType) {
+    //   throw new Error('File not found')
+    // }
 
-    const fileContent = await fs.promises.readFile(originalPath)
+    // const fileContent = await fs.promises.readFile(originalPath)
 
     const params = {
       Bucket: 'portifolio-img',
-      Key: filename,
-      Body: fileContent,
-      ContentType: contentType
+      Key: file.originalname,
+      Body: file.buffer,
+      ContentType: file.mimetype
     }
 
     try {
       await this.client.send(new PutObjectCommand(params))
     } catch (error) {
       return response.status(400).json({ Error: error })
-    } finally {
-      await fs.promises.unlink(originalPath)
     }
+    // } finally {
+    //   await fs.promises.unlink(originalPath)
+    // }
   }
   //--------------------------------------------------------------
   async deleteFile(filename, response) {

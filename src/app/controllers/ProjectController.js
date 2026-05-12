@@ -22,7 +22,7 @@ class ProjectController {
     const { name, description, category_id, link } = request.body
     const { filename: path } = request.file
 
-    await S3Storage.saveFile(path)
+    await S3Storage.saveFile(request.file)
     const project = await Project.create({
       name,
       description,
@@ -181,7 +181,7 @@ class ProjectController {
         },
         { where: { id } }
       )
-      await S3Storage.saveFile(path)
+      await S3Storage.saveFile(request.file)
     }
     const project = await Project.findByPk(id)
     return response.status(200).json(project)

@@ -22,15 +22,20 @@ class ProjectController {
     const { name, description, category_id, link } = request.body
     const { filename: path } = request.file
 
-    await S3Storage.saveFile(request.file)
-    const project = await Project.create({
-      name,
-      description,
-      category_id,
-      path,
-      link
-    })
-    return response.status(201).json(project)
+    try {  
+      await S3Storage.saveFile(request.file)
+      const project = await Project.create({
+        name,
+        description,
+        category_id,
+        path,
+        link
+      })
+      return response.status(201).json(project)
+    } catch (error) {
+      console.error(error) // veja error.message e error.parent?.detail
+      return response.status(500).json({ error: error.message })
+    }
   }
 
   //-----------------------------------------------------------------

@@ -21,11 +21,20 @@ class CategoryController {
       return response.status(400).json({ error: 'Category alread exist' })
     }
 
-    await Category.create({
-      name
-    })
+  //   await Category.create({
+  //     name
+  //   })
 
-    return response.status(201).json({ name })
+  //   return response.status(201).json({ name })
+  // }
+
+  try {
+  await Category.create({ name })
+  return response.status(201).json({ name })
+} catch (error) {
+  console.error(error) // veja error.message e error.parent?.detail
+  return response.status(500).json({ error: error.message })
+}
   }
 
   //----------------------------------------------------------------------

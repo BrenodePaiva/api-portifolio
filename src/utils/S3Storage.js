@@ -6,7 +6,7 @@ import {
   DeleteObjectCommand
 } from '@aws-sdk/client-s3'
 import path from 'path'
-import multerConfig from '../config/multer'
+// import multerConfig from '../config/multer'
 import fs from 'fs'
 
 class S3Storage {

@@ -1,16 +1,18 @@
 import { Router } from 'express'
 
-import multer from 'multer'
-import multerConfing from './config/multer'
+// import multer from 'multer'
+// import multerConfing from './config/multer'
 import authMiddlewares from './app/middlewares/auth'
 import UserController from './app/controllers/UserController'
 import CategoryController from './app/controllers/CategoryController'
 import ProjectController from './app/controllers/ProjectController'
 import SessionController from './app/controllers/SessionController'
 import DataBase from './database/index'
+import multer from 'multer'
 
 const routes = new Router()
-const upload = multer(multerConfing)
+// const upload = multer(multerConfing)
+const upload = multer({ storage: multer.memoryStorage() })
 
 routes.get('/', (req, res) => {
   DataBase.connection

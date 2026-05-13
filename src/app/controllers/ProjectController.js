@@ -20,7 +20,7 @@ class ProjectController {
     }
 
     const { name, description, category_id, link } = request.body
-    const { filename: path } = request.file
+    // const { filename: path } = request.file
 
     try {  
       await S3Storage.saveFile(request.file)
@@ -28,7 +28,7 @@ class ProjectController {
         name,
         description,
         category_id,
-        path,
+        path: request.file.originalname,
         link
       })
       return response.status(201).json(project)

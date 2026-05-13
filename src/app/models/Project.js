@@ -10,7 +10,7 @@ class Project extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `https://portifolio-image.s3.amazonaws.com/${this.path}`
+            return `https://portifolio-img.s3.sa-east-1.amazonaws.com/${this.path}`
           }
         },
         description: Sequelize.STRING,

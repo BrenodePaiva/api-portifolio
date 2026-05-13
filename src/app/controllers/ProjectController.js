@@ -20,7 +20,6 @@ class ProjectController {
     }
 
     const { name, description, category_id, link } = request.body
-    // const { filename: path } = request.file
 
     try {  
       await S3Storage.saveFile(request.file)
@@ -174,14 +173,13 @@ class ProjectController {
         { where: { id } }
       )
     } else {
-      const { filename: path } = request.file
       await S3Storage.deleteFile(existProj.path)
       await Project.update(
         {
           name,
           description,
           category_id,
-          path,
+          path: request.file.originalname,
           link
         },
         { where: { id } }

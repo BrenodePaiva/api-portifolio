@@ -5,9 +5,6 @@ import {
   PutObjectCommand,
   DeleteObjectCommand
 } from '@aws-sdk/client-s3'
-import path from 'path'
-// import multerConfig from '../config/multer'
-import fs from 'fs'
 
 class S3Storage {
   constructor() {
@@ -15,19 +12,7 @@ class S3Storage {
   }
 
   async saveFile(file, response) {
-    // const originalPath = path.resolve(multerConfig.directory, filename)
-    // const contentType = (async () => {
-    //   const mime = await import('mime')
-    //   // use mime aqui
-    //   mime.getType(originalPath)
-    // })()
-
-    // if (!contentType) {
-    //   throw new Error('File not found')
-    // }
-
-    // const fileContent = await fs.promises.readFile(originalPath)
-
+   
     const params = {
       Bucket: 'portifolio-img',
       Key: file.originalname,
@@ -41,9 +26,7 @@ class S3Storage {
     } catch (error) {
       return response.status(400).json({ Error: error })
     }
-    // } finally {
-    //   await fs.promises.unlink(originalPath)
-    // }
+    
   }
   //--------------------------------------------------------------
   async deleteFile(filename, response) {

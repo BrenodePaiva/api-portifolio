@@ -32,7 +32,8 @@ class S3Storage {
       Bucket: 'portifolio-img',
       Key: file.originalname,
       Body: file.buffer,
-      ContentType: file.mimetype
+      ContentType: file.mimetype,
+      ACL: 'public-read'
     }
 
     try {
